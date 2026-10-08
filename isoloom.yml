@@ -1,0 +1,29 @@
+# yaml-language-server: $schema=https://www.isoloom.com/schema/v1.json
+# OWASP SKF Local File Inclusion (OWASP Security Knowledge Framework labs, by Glenn ten Cate, Riccardo ten Cate and the SKF contributors) as an Isoloom spec:
+# a Flask page that opens and displays whatever file name the form sends (local file inclusion / path traversal). The SKF lab folder python/LFI is
+# vendored unchanged in app/ and built by its own Dockerfile.
+# `isoloom generate`, then `isoloom run docker`.
+version: 1
+name: skf-lfi
+
+networks:
+  lab: { cidr: 10.60.141.0/24, internet: false }
+
+machines:
+  web:
+    networks: { lab: 10 }
+    services: [{ port: 5000, name: web, http: true, publish: 5050 }]
+    resources: { cpus: 1, memory_mb: 256 }
+    docker:
+      build: app
+
+checks:
+  - name: the lab answers
+    http: http://web:5000/
+    wait: 120
+  - name: the default text file is read through the filename parameter
+    script: checks/read.sh
+
+message: |
+  OWASP SKF Local File Inclusion answers at http://localhost:{{ machines.web.services.0.publish }}/.
+  The drop-down sends a file name to /home, and the server opens it.

@@ -1,0 +1,14 @@
+{
+  "title": "OWASP SKF Local File Inclusion",
+  "description": "A Flask page that reads and displays a text file chosen from a drop-down list. The file name sent by the form is opened as is.",
+  "question": "Change the file name the form sends to read files outside the application's text folder, such as /etc/passwd (local file inclusion).",
+  "category": "WEB",
+  "difficulty": 1,
+  "evidence_kind": "SECRET",
+  "capabilities": [
+    "lfi",
+    "path-traversal",
+    "arbitrary-file-read",
+    "file-inclusion"
+  ]
+}
