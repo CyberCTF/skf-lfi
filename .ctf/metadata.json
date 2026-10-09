@@ -4,11 +4,5 @@
   "question": "Change the file name the form sends to read files outside the application's text folder, such as /etc/passwd (local file inclusion).",
   "category": "WEB",
   "difficulty": 1,
-  "evidence_kind": "SECRET",
-  "capabilities": [
-    "lfi",
-    "path-traversal",
-    "arbitrary-file-read",
-    "file-inclusion"
-  ]
+  "evidence_kind": "SECRET"
 }
