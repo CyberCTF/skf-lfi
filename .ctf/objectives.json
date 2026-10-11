@@ -1,0 +1,43 @@
+{
+  "objectives": [
+    {
+      "key": "main",
+      "title": "Read the flag",
+      "prompt": "Read files outside the text folder and get /ctf/flag.",
+      "check": {
+        "evidence": "SECRET",
+        "format": "FLAG{%s}"
+      },
+      "dev": "FLAG{dev-skf-lfi}",
+      "hints": [
+        "The drop-down sends a file name that the server opens as is.",
+        "Read about path traversal and local file inclusion."
+      ],
+      "steps": [
+        {
+          "key": "param",
+          "title": "Find the input",
+          "prompt": "Which form field holds the file name? (field name)",
+          "check": {
+            "answer": [
+              "filename"
+            ]
+          }
+        },
+        {
+          "key": "class",
+          "title": "Name the weakness",
+          "prompt": "What class of vulnerability is this?",
+          "check": {
+            "answer": [
+              "local file inclusion",
+              "lfi",
+              "path traversal",
+              "directory traversal"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
