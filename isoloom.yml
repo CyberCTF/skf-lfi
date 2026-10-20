@@ -16,14 +16,18 @@ networks:
 machines:
   web:
     networks: { lab: 10 }
-    services: [{ port: 5000, name: web, http: true, publish: 5050 }]
+    ports: { web: { port: 5000, protocol: http, publish: 5050 } }
     resources: { cpus: 1, memory_mb: 256 }
-    inputs: [CTF_FLAG_MAIN]
+    files:
+      - path: /run/lab/ctf_flag_main
+        input: CTF_FLAG_MAIN
     volumes: { ctf: /ctf }   # the flag, written by ctf/flag.sh at every start
-    docker:
-      build: app
-      dockerfile: build/web/Dockerfile
-      init: [ctf/flag.sh]
+    setup:
+      - ctf/flag.sh
+    app:
+      build:
+        context: app
+        dockerfile: build/web/Dockerfile
 
 checks:
   - name: the lab answers
@@ -33,5 +37,5 @@ checks:
     script: checks/read.sh
 
 message: |
-  OWASP SKF Local File Inclusion answers at http://localhost:{{ machines.web.services.0.publish }}/.
+  OWASP SKF Local File Inclusion answers at http://localhost:{{ machines.web.ports.web.published }}/.
   The drop-down sends a file name to /home, and the server opens it.
