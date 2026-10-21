@@ -2,7 +2,7 @@
 # OWASP SKF Local File Inclusion (OWASP Security Knowledge Framework labs, by Glenn ten Cate, Riccardo ten Cate and the SKF contributors) as an Isoloom spec:
 # a Flask page that opens and displays whatever file name the form sends (local file inclusion / path traversal). The SKF lab folder python/LFI is
 # vendored unchanged in app/ and built by its own Dockerfile through an overlay
-# (build/web/Dockerfile) that adds the flag folder /ctf.
+# (app/Dockerfile.ctf) that adds the flag folder /ctf.
 # `isoloom generate`, then `isoloom run docker`.
 version: 1
 name: skf-lfi
@@ -27,7 +27,7 @@ machines:
     app:
       build:
         context: app
-        dockerfile: build/web/Dockerfile
+        dockerfile: app/Dockerfile.ctf
 
 checks:
   - name: the lab answers

@@ -1,4 +1,5 @@
-# Overlay of the vendored app/Dockerfile (unchanged upstream), built with app/ as its context.
+# Overlay of the vendored app/Dockerfile (unchanged upstream), built with app/ as its context
+# (it lives inside that context so the build needs no out-of-context file access).
 # One difference: it creates /ctf owned by the lab user, for the per-player flag.
 
 ### Static layers
